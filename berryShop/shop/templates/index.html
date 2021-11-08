@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Главная{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+<header>
+<div class="top_menu">
+    <ul>
+        <li><a href="/">Магазин</a></li>
+        <li><a href="/delivery">Доставка</a></li>
+        <li><a href="/about-us">О нас</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Выход</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Войти</a></li>
+        {% endif %}
+    </ul>
+
+</div>
+</header>
+<main class="main1">
+{% block content %}
+
+<div class="products">
+    {% for product in product_slug %}
+        <div class="product-item">
+
+              <img src="media/{{ product.image_1 }}">
+              <div class="product-list">
+                      {% if product.number != 0 %}
+                        <h3>{{ product.name }} {{product.number}} шт</h3>
+                        {% else %}
+                            <h3>{{ product.name }}</h3>
+                  {% endif %}
+                  {% if product.discount == 0 %}
+                  <span class="price">{{ product.price }} руб.</span>
+                    {% else %}
+                        <span class="price" style="text-decoration: underline;">
+                            Скидка {{ product.price }} руб.
+                        </span>
+              {% endif %}
+              <a href="{{ product.id }}" class="button">В корзину</a>
+          </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+</main>
+</body>
+<footer>
+    <div class="FAQ">
+        Часто задаваемые вопросы
+        <br>
+        Сколько хранится клубника?<br>
+        Сколько стоит доставка?<br>
+        Как быстро доставите?<br>
+        В Мухостранск доставляете?<br>
+    </div>
+
+    <div class="created">
+        <img class="img" src="media/logo.png">
+    </div>
+    <div class="links">
+        <ul>
+            Мы с соц. сетях
+            <li>ВКонтакте</li>
+            <li>Инстаграмм</li>
+            <li>Телеграмм</li>
+        </ul>
+    </div>
+
+</footer>
+</html>

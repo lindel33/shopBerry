@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+{% block title %} {{product.name}} {% endblock %}
+
+{% block content %}
+
+<div class="detail_item">
+    <div class = "wrap">
+        <input type="radio" name="slides" id="point1" checked>
+        <input type="radio" name="slides" id="point2">
+        <div class="slider">
+                <div class="imgDetail"><img class="image" src="{{ product.image_1.url }}"></div>
+            <div class="slides img2">
+                <img class="image" src="{{ product.image_2.url }}">
+            </div>
+        </div>
+        <div class="control">
+            <label for="point1"></label>
+            <label for="point2"></label>
+        </div>
+    </div>
+
+    <div class="description">
+        <div class="description_text">
+            {{ product.text|linebreaks }}
+        </div>
+        <form action="{% url 'cart:cart_add' product.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="В корзину">
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

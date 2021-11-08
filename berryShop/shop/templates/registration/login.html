@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+<div class="loginUser">
+    <h2>Вход</h2>
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        <div>
+        {% for field in form %}
+        <div class="form-group">
+            {{field.label_tag}}
+            <div>{{field}}</div>
+            {% if field.errors%}
+            {% for error in field.errors %}
+            <div class="alert alert-danger">
+                {{error}}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% endfor %}
+        </div>
+        <input type="submit" value="Войти">
+
+    </form>
+    <a href="/registr">Регистрация</a>
+</div>
+</body>

@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% block title %} Оформление заказа{% endblock %}
+
+{% block content %}
+<h1> Оформление заказа</h1>
+<div class="cart">
+{% for el in cart%}
+
+    <div class="item_in_cart">
+        <p>{{el.product}} {{el.quantity}}шт {{el.total_price}} руб.</p>
+    </div>
+{% endfor %}
+    <p> Общаяя сумма: {{ cart.get_total_price }} руб.</p>
+</div>
+<br>
+<form action="make_order" method="post"  >
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="Submit" >
+</form>
+{{ex}}
+{% endblock %}
